@@ -33,7 +33,8 @@ p {
 
 .config {
 	float: left;
-	margin: 0 auto;
+	margin: 0 38px;
+	/*margin: 0 auto;*/
 }
 
 .clock {
