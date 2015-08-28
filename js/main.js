@@ -31,7 +31,7 @@ var Timer = function(name, minutes, isActive, classStr) {
   this.nameStr = name;
   this.minutesSet = minutes || 0;
   this.milliseconds = this.minutesSet * 60000;
-  console.log('this.milliseconds: ' + this.milliseconds)
+  //console.log('this.milliseconds: ' + this.milliseconds)
   //isActive indicates if this is the current timer displayed in the clock section
   this.isActive = isActive || false;
   //isCountingDown indicates if the countdown timer is active for this timer
@@ -48,32 +48,36 @@ Timer.prototype.getMilliseconds = function() {
 //increments timer's minutes property by one and updates minutes display
 Timer.prototype.incMinutes = function() {
   this.minutesSet++;
+  console.log('this.minutesSet: ' + this.minutesSet);
   this.displayMinutes();
 };
 
 //decrements timer's minutes property by one and updates minutes display
 Timer.prototype.decMinutes = function() {
   this.minutesSet--;
+  console.log('this.minutesSet: ' + this.minutesSet);
   this.displayMinutes();
 }
 
 Timer.prototype.countDown = function() {
-  console.log('this: ' + this);
-  console.log(this.milliseconds);
-  console.log(typeof this.milliseconds);
-  if (this.milliseconds - 1000 > 0) {
-    this.isActive = true;
-    this.isCountingDown = true;
-    this.milliseconds -= 1000;
-    this.remainingTime = convertTime(this.milliseconds);
-    this.displayRemainingTime();
-  } else {
-    this.isCountingDown = false;
-    this.isActive = false;
-    this.stop();
-    toggleTimer();
-    console.log('play alarm and change to other timer');
-  }
+  console.log('commented everything out');
+
+  // console.log('this: ' + this);
+  // console.log(this.milliseconds);
+  // console.log(typeof this.milliseconds);
+  // if (this.milliseconds - 1000 > 0) {
+  //   this.isActive = true;
+  //   this.isCountingDown = true;
+  //   this.milliseconds -= 1000;
+  //   this.remainingTime = convertTime(this.milliseconds);
+  //   this.displayRemainingTime();
+  // } else {
+  //   this.stop();
+  //   this.isCountingDown = false;
+  //   this.isActive = false;
+  //   console.log('play alarm and change to other timer');
+  //   //toggleTimer();
+  // }
 }
 
 Timer.prototype.start = function() {
@@ -83,9 +87,11 @@ Timer.prototype.start = function() {
   console.log(that.nameStr);
 
   if (that.nameStr === 'Session') {
-    sessionIntervalId = window.setInterval(this.countDown.call(that), 1000);
+    sessionIntervalId = window.setInterval(that.countDown, 1000);
+    //sessionIntervalId = window.setInterval(this.countDown.call(that), 1000);
   } else {
-    breakIntervalId = window.setInterval(this.countDown.call(that), 1000);
+    breakIntervalId = window.setInterval(that.countDown, 1000);
+    //breakIntervalId = window.setInterval(this.countDown.call(that), 1000);
   }
   //this.intervalId = window.setInterval(this.countDown.call(that), 1000);
   //console.log('this.intervalId: ' + this.intervalId);
@@ -142,6 +148,47 @@ Timer.prototype.displayRemainingTime = function() {
 var breakTimer = new Timer('Break', 5, false, '.break-min');
 var sessionTimer = new Timer('Session', 25, true, '.session-min');
 
+breakTimer.countDown = function() {
+  if (breakTimer.milliseconds - 1000 > 0) {
+    breakTimer.isActive = true;
+    breakTimer.isCountingDown = true;
+    breakTimer.milliseconds -= 1000;
+    breakTimer.remainingTime = convertTime(breakTimer.milliseconds);
+    breakTimer.displayRemainingTime();
+  } else {
+    breakTimer.stop();
+    breakTimer.isCountingDown = false;
+    breakTimer.isActive = false;
+    console.log('play alarm and change to other timer');
+//TODO need to test case where break goes session
+    sessionTimer.start();
+    //toggleTimer();
+  }
+}
+
+sessionTimer.countDown = function() {
+  console.log('does this get here');
+  console.log('this.milliseconds: ' + this.milliseconds);
+
+  if (sessionTimer.milliseconds - 1000 > 0) {
+    sessionTimer.isActive = true;
+    sessionTimer.isCountingDown = true;
+    sessionTimer.milliseconds -= 1000;
+    console.log('milliseconds: ' + sessionTimer.milliseconds);
+    sessionTimer.remainingTime = convertTime(sessionTimer.milliseconds);
+    sessionTimer.displayRemainingTime();
+  } else {
+    sessionTimer.stop();
+    sessionTimer.isCountingDown = false;
+    sessionTimer.isActive = false;
+    console.log('play alarm and change to other timer');
+//TODO need to test case where session goes to break 
+    breakTimer.start();
+    //toggleTimer();
+  }
+}
+
+
 //initial display
 breakTimer.displayMinutes();
 sessionTimer.displayMinutes();
@@ -173,6 +220,15 @@ var toggleTimer = function() {
 //onclick listeners
 var divClock = document.querySelector('.clock');
 divClock.addEventListener('click', toggleTimer);
+
+var iconBreakMinus = document.querySelector('.break-minus');
+iconBreakMinus.addEventListener('click', breakTimer.decMinutes.apply(breakTimer));
+var iconBreakPlus = document.querySelector('.break-plus');
+iconBreakPlus.addEventListener('click', breakTimer.incMinutes.apply(breakTimer));
+var iconSessionMinus = document.querySelector('.session-minus');
+iconSessionMinus.addEventListener('click', sessionTimer.decMinutes.apply(sessionTimer));
+var iconSessionPlus = document.querySelector('.session-plus');
+iconSessionPlus.addEventListener('click', sessionTimer.incMinutes.apply(sessionTimer));
 
 // var startBtn = document.getElementById('start');
 // startBtn.addEventListener('click', start);
