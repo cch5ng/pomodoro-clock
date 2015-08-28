@@ -27,12 +27,13 @@ function convertTime(millisecond) {
   return [min, sec];
 }
 
-var Timer = function(minutes, isActive, classStr) {
+var Timer = function(name, minutes, isActive, classStr) {
+  this.nameStr = name;
   this.minutes = minutes || 0;
   this.milliseconds = this.minutes * 60000;
   this.isActive = isActive || false;
   this.classStr = classStr || '';
-  this.timeRemaining = convertTime(this.milliseconds);
+  this.remainingTime = convertTime(this.milliseconds);
 };
 
 //increments timer's minutes property by one and updates minutes display
@@ -83,25 +84,38 @@ Timer.prototype.displayMinutes = function() {
   span.innerHTML = this.minutes;
 }
 
-Timer.prototype.displayRemainingTime = function() {
-
+Timer.prototype.displayTimerName = function() {
+  var div = document.querySelector('.timer-name');
+  div.innerHTML = '';
+  div.innerHTML = this.nameStr;
 }
 
-var breakTimer = new Timer(5, false, '.break-min');
-var sessionTimer = new Timer(25, true, '.session-min');
+Timer.prototype.displayRemainingTime = function() {
+  var min = this.remainingTime[0], 
+      sec = this.remainingTime[1];
+//reformatting seconds, prepend with '0'
+  if (sec < 10) {
+    sec = '0' + sec;
+  }
+  var div = document.querySelector('.remaining-time-inner');
+  div.innerHTML = '';
+  div.innerHTML = min + ':' + sec;
+}
+
+var breakTimer = new Timer('Break', 5, false, '.break-min');
+var sessionTimer = new Timer('Session', 25, true, '.session-min');
+
+//initial display
 breakTimer.displayMinutes();
 sessionTimer.displayMinutes();
 
-console.log(breakTimer.minutes);
-console.log(breakTimer.milliseconds);
-console.log(breakTimer.isActive);
-console.log(breakTimer.classStr);
-
-
-console.log(sessionTimer.minutes);
-console.log(sessionTimer.milliseconds);
-console.log(sessionTimer.isActive);
-console.log(sessionTimer.classStr);
+if (sessionTimer.isActive) {
+  sessionTimer.displayTimerName();
+  sessionTimer.displayRemainingTime();
+} else {
+  breakTimer.displayTimerName();
+  breakTimer.displayRemainingTime();
+}
 
 //onclick listeners
 var startBtn = document.getElementById('start');
