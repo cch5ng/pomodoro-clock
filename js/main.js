@@ -35,12 +35,16 @@ var Timer = function(minutes, isActive, classStr) {
   this.timeRemaining = convertTime(this.milliseconds);
 };
 
+//increments timer's minutes property by one and updates minutes display
 Timer.prototype.incMinutes = function() {
   this.minutes++;
+  this.displayMinutes();
 };
 
+//decrements timer's minutes property by one and updates minutes display
 Timer.prototype.decMinutes = function() {
   this.minutes--;
+  this.displayMinutes();
 }
 
 Timer.prototype.countDown = function() {
@@ -73,7 +77,8 @@ Timer.prototype.reset = function() {
 }
 
 Timer.prototype.displayMinutes = function() {
-  var span = document.querySelector(this.class);
+  var span = document.querySelector(this.classStr);
+  console.log(span);
   span.innerHTML = '';
   span.innerHTML = this.minutes;
 }
@@ -82,8 +87,10 @@ Timer.prototype.displayRemainingTime = function() {
 
 }
 
-var breakTimer = new Timer(5, false, 'break-min');
-var sessionTimer = new Timer(25, true, 'session-min');
+var breakTimer = new Timer(5, false, '.break-min');
+var sessionTimer = new Timer(25, true, '.session-min');
+breakTimer.displayMinutes();
+sessionTimer.displayMinutes();
 
 console.log(breakTimer.minutes);
 console.log(breakTimer.milliseconds);
