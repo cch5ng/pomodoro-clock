@@ -9,7 +9,7 @@
 //     breakMin = 1;
 // var sessionLength = sessionMin * 60000;
 // var breakLength = breakMin * 60000;
-// var intervalId;
+var sessionIntervalId, breakIntervalId;
 // var isSessionActive = true;
 
 //helper function to display human friendly time
@@ -65,10 +65,7 @@ Timer.prototype.countDown = function() {
     this.isActive = true;
     this.isCountingDown = true;
     this.milliseconds -= 1000;
-    //this.minutes -= 1;
-    //console.log('sessionLength: ' + sessionLength);
     this.remainingTime = convertTime(this.milliseconds);
-    //this.displayMinutes();
     this.displayRemainingTime();
   } else {
     this.isCountingDown = false;
@@ -83,21 +80,35 @@ Timer.prototype.start = function() {
   console.log('this: ' + this);
 //adding this reference to original this so that countDown doesn't get called with window as this
   var that = this;
-  //var intervalId = setInterval(this.countDown, 1000);
-  //var intervalId = setInterval(this.countDown.call(that), 1000);
-  this.intervalId = setInterval(this.countDown.call(that), 1000);
+  console.log(that.nameStr);
+
+  if (that.nameStr === 'Session') {
+    sessionIntervalId = window.setInterval(this.countDown.call(that), 1000);
+  } else {
+    breakIntervalId = window.setInterval(this.countDown.call(that), 1000);
+  }
+  //this.intervalId = window.setInterval(this.countDown.call(that), 1000);
   //console.log('this.intervalId: ' + this.intervalId);
   //this.intervalId = setInterval(this.countDown, 1000);
+  //var intervalId = setInterval(this.countDown, 1000);
+  //var intervalId = setInterval(this.countDown.call(that), 1000);
 }
 
 Timer.prototype.stop = function() {
   console.log('this: ' + this);
-  console.log('this.intervalId: ' + this.intervalId);
-  clearInterval(this.intervalId);
+  console.log(this.nameStr);
+  //console.log('this.intervalId: ' + this.intervalId);
+  if (this.nameStr === 'Session') {
+    clearInterval(sessionIntervalId);
+  } else {
+    clearInterval(breakIntervalId);
+  }
+  //clearInterval(this.intervalId);
   //this.isActive = false;
   this.isCountingDown = false;
 }
 
+//not currently used
 Timer.prototype.reset = function() {
   this.stop();
   this.milliseconds = this.minutes * 60000;
