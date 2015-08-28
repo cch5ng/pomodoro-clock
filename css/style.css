@@ -37,6 +37,11 @@ p {
 	/*margin: 0 auto;*/
 }
 
+.minutes {
+	margin: 0 5px;
+	font-size: 1.25em;
+}
+
 .clock {
 	clear: both;
 }
