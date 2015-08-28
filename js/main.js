@@ -29,8 +29,8 @@ function convertTime(millisecond) {
 
 var Timer = function(name, minutes, isActive, classStr) {
   this.nameStr = name;
-  this.minutes = minutes || 0;
-  this.milliseconds = this.minutes * 60000;
+  this.minutesSet = minutes || 0;
+  this.milliseconds = this.minutesSet * 60000;
   console.log('this.milliseconds: ' + this.milliseconds)
   //isActive indicates if this is the current timer displayed in the clock section
   this.isActive = isActive || false;
@@ -47,40 +47,52 @@ Timer.prototype.getMilliseconds = function() {
 
 //increments timer's minutes property by one and updates minutes display
 Timer.prototype.incMinutes = function() {
-  this.minutes++;
+  this.minutesSet++;
   this.displayMinutes();
 };
 
 //decrements timer's minutes property by one and updates minutes display
 Timer.prototype.decMinutes = function() {
-  this.minutes--;
+  this.minutesSet--;
   this.displayMinutes();
 }
 
 Timer.prototype.countDown = function() {
   console.log('this: ' + this);
   console.log(this.milliseconds);
+  console.log(typeof this.milliseconds);
   if (this.milliseconds - 1000 > 0) {
     this.isActive = true;
     this.isCountingDown = true;
     this.milliseconds -= 1000;
-    this.minutes -= 1;
+    //this.minutes -= 1;
     //console.log('sessionLength: ' + sessionLength);
     this.remainingTime = convertTime(this.milliseconds);
-    this.displayMinutes();
+    //this.displayMinutes();
     this.displayRemainingTime();
   } else {
     this.isCountingDown = false;
-    //this.isActive = false;
+    this.isActive = false;
+    this.stop();
+    toggleTimer();
     console.log('play alarm and change to other timer');
   }
 }
 
 Timer.prototype.start = function() {
-  this.intervalId = setInterval(this.countDown, 1000);
+  console.log('this: ' + this);
+//adding this reference to original this so that countDown doesn't get called with window as this
+  var that = this;
+  //var intervalId = setInterval(this.countDown, 1000);
+  //var intervalId = setInterval(this.countDown.call(that), 1000);
+  this.intervalId = setInterval(this.countDown.call(that), 1000);
+  //console.log('this.intervalId: ' + this.intervalId);
+  //this.intervalId = setInterval(this.countDown, 1000);
 }
 
 Timer.prototype.stop = function() {
+  console.log('this: ' + this);
+  console.log('this.intervalId: ' + this.intervalId);
   clearInterval(this.intervalId);
   //this.isActive = false;
   this.isCountingDown = false;
@@ -95,7 +107,7 @@ Timer.prototype.displayMinutes = function() {
   var span = document.querySelector(this.classStr);
   //console.log(span);
   span.innerHTML = '';
-  span.innerHTML = this.minutes;
+  span.innerHTML = this.minutesSet;
 }
 
 Timer.prototype.displayTimerName = function() {
