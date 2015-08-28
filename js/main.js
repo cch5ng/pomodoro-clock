@@ -27,10 +27,12 @@ function convertTime(millisecond) {
   return [min, sec];
 }
 
-var Timer = function(minutes, isActive) {
+var Timer = function(minutes, isActive, classStr) {
   this.minutes = minutes || 0;
   this.milliseconds = this.minutes * 60000;
   this.isActive = isActive || false;
+  this.classStr = classStr || '';
+  this.timeRemaining = convertTime(this.milliseconds);
 };
 
 Timer.prototype.incMinutes = function() {
@@ -44,8 +46,11 @@ Timer.prototype.decMinutes = function() {
 Timer.prototype.countDown = function() {
   if (this.milliseconds - 1000 > 0) {
     this.milliseconds -= 1000;
-    console.log('sessionLength: ' + sessionLength);
-    var timeRemaining = convertTime(sessionLength);
+    this.minutes -= 1;
+    //console.log('sessionLength: ' + sessionLength);
+    this.remainingTime = convertTime(this.milliseconds);
+    this.displayMinutes();
+    this.displayRemainingTime();
     this.isActive = true;
   } else {
     this.isActive = false;
@@ -68,19 +73,28 @@ Timer.prototype.reset = function() {
 }
 
 Timer.prototype.displayMinutes = function() {
-  
+  var span = document.querySelector(this.class);
+  span.innerHTML = '';
+  span.innerHTML = this.minutes;
 }
 
-var breakTimer = new Timer(5, false);
-var sessionTimer = new Timer(25, true);
+Timer.prototype.displayRemainingTime = function() {
+
+}
+
+var breakTimer = new Timer(5, false, 'break-min');
+var sessionTimer = new Timer(25, true, 'session-min');
 
 console.log(breakTimer.minutes);
 console.log(breakTimer.milliseconds);
 console.log(breakTimer.isActive);
+console.log(breakTimer.classStr);
+
 
 console.log(sessionTimer.minutes);
 console.log(sessionTimer.milliseconds);
 console.log(sessionTimer.isActive);
+console.log(sessionTimer.classStr);
 
 //onclick listeners
 var startBtn = document.getElementById('start');
