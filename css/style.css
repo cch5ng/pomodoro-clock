@@ -44,6 +44,17 @@ p {
 
 .clock {
 	clear: both;
+	margin: 30px;
+	font-size: 1.85em;
+}
+
+.timer-name, .remaining-time {
+	display: block;
+	text-align: center;
+}
+
+.remaining-time {
+	margin-top: 20px;
 }
 
 /* TODO EDIT FROM HERE */
