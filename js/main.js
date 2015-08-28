@@ -5,12 +5,12 @@
 //maybe they should be defined as an object; this would reduce the use of global vars
 
 //durations in milliseconds
-var sessionMin = 1,
-    breakMin = 1;
-var sessionLength = sessionMin * 60000;
-var breakLength = breakMin * 60000;
-var intervalId;
-var isSessionActive = true;
+// var sessionMin = 1,
+//     breakMin = 1;
+// var sessionLength = sessionMin * 60000;
+// var breakLength = breakMin * 60000;
+// var intervalId;
+// var isSessionActive = true;
 
 //helper function to display human friendly time
 //given time in milliseconds, returns an array
@@ -67,28 +67,20 @@ Timer.prototype.reset = function() {
   this.milliseconds = this.minutes * 60000;
 }
 
-// function countDown() {
-//   sessionLength -= 1000;
-//   console.log('sessionLength: ' + sessionLength);
-//   var timeRemaining = convertTime(sessionLength);
-//   isCountingDown = true;
-// }
+Timer.prototype.displayMinutes = function() {
+  
+}
 
-//interval should be every second (1 millisecond / 1000)
-// function start() {
-//   intervalId = setInterval(countDown, 1000);
-// }
+var breakTimer = new Timer(5, false);
+var sessionTimer = new Timer(25, true);
 
-// function stop() {
-//   clearInterval(intervalId);
-//   isCountingDown = false;
-// }
+console.log(breakTimer.minutes);
+console.log(breakTimer.milliseconds);
+console.log(breakTimer.isActive);
 
-// function reset() {
-//   stop();
-//   sessionLength = sessionMin * 60000;
-//   breakLenth = breakMin * 60000;
-// }
+console.log(sessionTimer.minutes);
+console.log(sessionTimer.milliseconds);
+console.log(sessionTimer.isActive);
 
 //onclick listeners
 var startBtn = document.getElementById('start');
