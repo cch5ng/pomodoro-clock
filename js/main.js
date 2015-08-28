@@ -145,23 +145,29 @@ Timer.prototype.displayRemainingTime = function() {
   div.innerHTML = min + ':' + sec;
 }
 
-var breakTimer = new Timer('Break', 5, false, '.break-min');
-var sessionTimer = new Timer('Session', 25, true, '.session-min');
+//breakTimer: default minutes should be 5
+var breakTimer = new Timer('Break', 1, false, '.break-min');
+//sessionTimer: default minutes should be 25
+var sessionTimer = new Timer('Session', 1, true, '.session-min');
 
 breakTimer.countDown = function() {
-  if (breakTimer.milliseconds - 1000 > 0) {
+  if (breakTimer.milliseconds - 1000 >= 0) {
     breakTimer.isActive = true;
     breakTimer.isCountingDown = true;
+    breakTimer.displayTimerName();
     breakTimer.milliseconds -= 1000;
     breakTimer.remainingTime = convertTime(breakTimer.milliseconds);
     breakTimer.displayRemainingTime();
-  } else {
+  } else if (sessionTimer.milliseconds - 1000 >= 0) {
     breakTimer.stop();
     breakTimer.isCountingDown = false;
     breakTimer.isActive = false;
     console.log('play alarm and change to other timer');
 //TODO need to test case where break goes session
     sessionTimer.start();
+//might break next two lines out into a reset function
+    breakTimer.milliseconds = breakTimer.minutesSet * 60000;
+    breakTimer.remainingTime = convertTime(breakTimer.milliseconds);
     //toggleTimer();
   }
 }
@@ -170,20 +176,24 @@ sessionTimer.countDown = function() {
   console.log('does this get here');
   console.log('this.milliseconds: ' + this.milliseconds);
 
-  if (sessionTimer.milliseconds - 1000 > 0) {
+  if (sessionTimer.milliseconds - 1000 >= 0) {
     sessionTimer.isActive = true;
     sessionTimer.isCountingDown = true;
+    sessionTimer.displayTimerName();
     sessionTimer.milliseconds -= 1000;
     console.log('milliseconds: ' + sessionTimer.milliseconds);
     sessionTimer.remainingTime = convertTime(sessionTimer.milliseconds);
     sessionTimer.displayRemainingTime();
-  } else {
+  } else if (breakTimer.milliseconds - 1000 >= 0) {
     sessionTimer.stop();
     sessionTimer.isCountingDown = false;
     sessionTimer.isActive = false;
     console.log('play alarm and change to other timer');
 //TODO need to test case where session goes to break 
     breakTimer.start();
+//might break next two lines out into a reset function
+    sessionTimer.milliseconds = sessionTimer.minutesSet * 60000;
+    sessionTimer.remainingTime = convertTime(sessionTimer.milliseconds);
     //toggleTimer();
   }
 }
