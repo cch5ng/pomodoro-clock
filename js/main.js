@@ -27,37 +27,68 @@ function convertTime(millisecond) {
   return [min, sec];
 }
 
-//
-function incTime() {
+var Timer = function(minutes, isActive) {
+  this.minutes = minutes || 0;
+  this.milliseconds = this.minutes * 60000;
+  this.isActive = isActive || false;
+};
 
+Timer.prototype.incMinutes = function() {
+  this.minutes++;
+};
+
+Timer.prototype.decMinutes = function() {
+  this.minutes--;
 }
 
-function decTime() {
-
+Timer.prototype.countDown = function() {
+  if (this.milliseconds - 1000 > 0) {
+    this.milliseconds -= 1000;
+    console.log('sessionLength: ' + sessionLength);
+    var timeRemaining = convertTime(sessionLength);
+    this.isActive = true;
+  } else {
+    this.isActive = false;
+    console.log('play alarm and change to other timer');
+  }
 }
 
-function countDown() {
-  sessionLength -= 1000;
-  console.log('sessionLength: ' + sessionLength);
-  var timeRemaining = convertTime(sessionLength);
-  isCountingDown = true;
+Timer.prototype.start = function() {
+  this.intervalId = setInterval(this.countDown, 1000);
 }
+
+Timer.prototype.stop = function() {
+  clearInterval(this.intervalId);
+  this.isActive = false;
+}
+
+Timer.prototype.reset = function() {
+  this.stop();
+  this.milliseconds = this.minutes * 60000;
+}
+
+// function countDown() {
+//   sessionLength -= 1000;
+//   console.log('sessionLength: ' + sessionLength);
+//   var timeRemaining = convertTime(sessionLength);
+//   isCountingDown = true;
+// }
 
 //interval should be every second (1 millisecond / 1000)
-function start() {
-  intervalId = setInterval(countDown, 1000);
-}
+// function start() {
+//   intervalId = setInterval(countDown, 1000);
+// }
 
-function stop() {
-  clearInterval(intervalId);
-  isCountingDown = false;
-}
+// function stop() {
+//   clearInterval(intervalId);
+//   isCountingDown = false;
+// }
 
-function reset() {
-  stop();
-  sessionLength = sessionMin * 60000;
-  breakLenth = breakMin * 60000;
-}
+// function reset() {
+//   stop();
+//   sessionLength = sessionMin * 60000;
+//   breakLenth = breakMin * 60000;
+// }
 
 //onclick listeners
 var startBtn = document.getElementById('start');
