@@ -12,7 +12,7 @@
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<link href="css/style.css" rel="stylesheet" >
-	<link href='http://fonts.googleapis.com/css?family=Merriweather:400,700' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Oswald:300' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 </head>
 <body>
@@ -21,10 +21,24 @@
 		<h2>Pomodoro Clock</h2>
 	</header>
 
-	<main class="main">
-	  <button id="start">Start</button>
-	  <button id="stop">Stop</button>
-	  <button id="reset">Reset</button>	
+	<main class="main ">
+		<div class="settings flex-center">
+			<div class="config center">
+				<h3>Break</h3>
+				<i class="ion ion-minus-round"></i> <span class="break-min"></span> <i class="ion ion-plus-round"></i>
+			</div>
+			<div class="config center">
+				<h3>Session</h3>
+				<i class="ion ion-minus-round"></i> <span class="session-min"></span> <i class="ion ion-plus-round"></i>
+			</div>
+		</div>
+
+		<div class="clock flex-center">
+<!-- TODO need to rewrite listeners for .clock rather than buttons -->
+		  <button id="start">Start</button>
+		  <button id="stop">Stop</button>
+		  <button id="reset">Reset</button>	
+		</div>
 	</main>
 
 	<footer>
