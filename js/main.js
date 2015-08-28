@@ -1,10 +1,16 @@
 //TODO add UI and interactivity
 //display the remaining time status
 
+//TODO, since the work and break clocks are both kind of the same, except for the duration and which is currently active
+//maybe they should be defined as an object; this would reduce the use of global vars
+
 //durations in milliseconds
-var sessionLength = 1 * 60000;
-var breakLength = 1 * 60000;
+var sessionMin = 1,
+    breakMin = 1;
+var sessionLength = sessionMin * 60000;
+var breakLength = breakMin * 60000;
 var intervalId;
+var isSessionActive = true;
 
 //helper function to display human friendly time
 //given time in milliseconds, returns an array
@@ -19,6 +25,15 @@ function convertTime(millisecond) {
   console.log('min: ' + min);
   console.log('sec: ' + sec);
   return [min, sec];
+}
+
+//
+function incTime() {
+
+}
+
+function decTime() {
+
 }
 
 function countDown() {
@@ -40,8 +55,8 @@ function stop() {
 
 function reset() {
   stop();
-  sessionLength = 25 * 60000;
-  breakLenth = 5 * 60000;
+  sessionLength = sessionMin * 60000;
+  breakLenth = breakMin * 60000;
 }
 
 //onclick listeners
