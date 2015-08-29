@@ -234,13 +234,28 @@ breakTimer.incMinutes = function() {
   breakTimer.minutesSet++;
   console.log('breakTimer.minutesSet: ' + breakTimer.minutesSet);
   breakTimer.displayMinutes();
+
+  //updates remaining time display
+  if (breakTimer.isActive && !breakTimer.isCountingDown) {
+    breakTimer.milliseconds = breakTimer.minutesSet * 60000;
+    breakTimer.remainingTime = convertTime(breakTimer.milliseconds);
+    breakTimer.displayRemainingTime();
+  }
 };
 
 //decrements timer's minutes property by one and updates minutes display
 breakTimer.decMinutes = function() {
-  breakTimer.minutesSet--;
-  console.log('breakTimer.minutesSet: ' + breakTimer.minutesSet);
-  breakTimer.displayMinutes();
+  if (breakTimer.minutesSet - 1 >= 0) {
+    breakTimer.minutesSet--;
+    console.log('breakTimer.minutesSet: ' + breakTimer.minutesSet);
+    breakTimer.displayMinutes();
+  }
+  //updates remaining time display
+  if (breakTimer.isActive && !breakTimer.isCountingDown) {
+    breakTimer.milliseconds = breakTimer.minutesSet * 60000;
+    breakTimer.remainingTime = convertTime(breakTimer.milliseconds);
+    breakTimer.displayRemainingTime();
+  }
 }
 
 //increments timer's minutes property by one and updates minutes display
@@ -248,13 +263,25 @@ sessionTimer.incMinutes = function() {
   sessionTimer.minutesSet++;
   console.log('sessionTimer.minutesSet: ' + sessionTimer.minutesSet);
   sessionTimer.displayMinutes();
+  if (sessionTimer.isActive && !sessionTimer.isCountingDown) {
+    sessionTimer.milliseconds = sessionTimer.minutesSet * 60000;
+    sessionTimer.remainingTime = convertTime(sessionTimer.milliseconds);
+    sessionTimer.displayRemainingTime();
+  }
 };
 
 //decrements timer's minutes property by one and updates minutes display
 sessionTimer.decMinutes = function() {
-  sessionTimer.minutesSet--;
-  console.log('sessionTimer.minutesSet: ' + sessionTimer.minutesSet);
-  sessionTimer.displayMinutes();
+  if (sessionTimer.minutesSet - 1 >= 0) {
+    sessionTimer.minutesSet--;
+    console.log('sessionTimer.minutesSet: ' + sessionTimer.minutesSet);
+    sessionTimer.displayMinutes();
+  }
+  if (sessionTimer.isActive && !sessionTimer.isCountingDown) {
+    sessionTimer.milliseconds = sessionTimer.minutesSet * 60000;
+    sessionTimer.remainingTime = convertTime(sessionTimer.milliseconds);
+    sessionTimer.displayRemainingTime();
+  }
 }
 
 //onclick listeners
