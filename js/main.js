@@ -47,16 +47,18 @@ Timer.prototype.getMilliseconds = function() {
 
 //increments timer's minutes property by one and updates minutes display
 Timer.prototype.incMinutes = function() {
-  this.minutesSet++;
-  console.log('this.minutesSet: ' + this.minutesSet);
-  this.displayMinutes();
+  console.log('not currently in use');
+  // this.minutesSet++;
+  // console.log('this.minutesSet: ' + this.minutesSet);
+  // this.displayMinutes();
 };
 
 //decrements timer's minutes property by one and updates minutes display
 Timer.prototype.decMinutes = function() {
-  this.minutesSet--;
-  console.log('this.minutesSet: ' + this.minutesSet);
-  this.displayMinutes();
+  console.log('not currently in use');
+  // this.minutesSet--;
+  // console.log('this.minutesSet: ' + this.minutesSet);
+  // this.displayMinutes();
 }
 
 Timer.prototype.countDown = function() {
@@ -226,19 +228,47 @@ var toggleTimer = function() {
   }
 };
 
+//breaking out functions from the prototype
+//increments timer's minutes property by one and updates minutes display
+breakTimer.incMinutes = function() {
+  breakTimer.minutesSet++;
+  console.log('breakTimer.minutesSet: ' + breakTimer.minutesSet);
+  breakTimer.displayMinutes();
+};
+
+//decrements timer's minutes property by one and updates minutes display
+breakTimer.decMinutes = function() {
+  breakTimer.minutesSet--;
+  console.log('breakTimer.minutesSet: ' + breakTimer.minutesSet);
+  breakTimer.displayMinutes();
+}
+
+//increments timer's minutes property by one and updates minutes display
+sessionTimer.incMinutes = function() {
+  sessionTimer.minutesSet++;
+  console.log('sessionTimer.minutesSet: ' + sessionTimer.minutesSet);
+  sessionTimer.displayMinutes();
+};
+
+//decrements timer's minutes property by one and updates minutes display
+sessionTimer.decMinutes = function() {
+  sessionTimer.minutesSet--;
+  console.log('sessionTimer.minutesSet: ' + sessionTimer.minutesSet);
+  sessionTimer.displayMinutes();
+}
 
 //onclick listeners
 var divClock = document.querySelector('.clock');
 divClock.addEventListener('click', toggleTimer);
 
 var iconBreakMinus = document.querySelector('.break-minus');
-iconBreakMinus.addEventListener('click', breakTimer.decMinutes.apply(breakTimer));
+iconBreakMinus.addEventListener('click', breakTimer.decMinutes);
 var iconBreakPlus = document.querySelector('.break-plus');
-iconBreakPlus.addEventListener('click', breakTimer.incMinutes.apply(breakTimer));
+iconBreakPlus.addEventListener('click', breakTimer.incMinutes);
 var iconSessionMinus = document.querySelector('.session-minus');
-iconSessionMinus.addEventListener('click', sessionTimer.decMinutes.apply(sessionTimer));
+iconSessionMinus.addEventListener('click', sessionTimer.decMinutes);
 var iconSessionPlus = document.querySelector('.session-plus');
-iconSessionPlus.addEventListener('click', sessionTimer.incMinutes.apply(sessionTimer));
+iconSessionPlus.addEventListener('click', sessionTimer.incMinutes);
 
 // var startBtn = document.getElementById('start');
 // startBtn.addEventListener('click', start);
