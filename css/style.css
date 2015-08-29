@@ -57,6 +57,11 @@ p {
 	margin-top: 20px;
 }
 
+.break-minus, .break-plus, .session-minus, .session-plus {
+	border: 1px solid red;
+	padding: 5px;
+}
+
 /* TODO EDIT FROM HERE */
 
 footer {
