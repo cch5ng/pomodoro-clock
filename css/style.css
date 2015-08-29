@@ -33,7 +33,7 @@ p {
 
 .config {
 	float: left;
-	margin: 0 38px;
+	margin: 0 27px;
 	/*margin: 0 auto;*/
 }
 
@@ -44,8 +44,14 @@ p {
 
 .clock {
 	clear: both;
-	margin: 30px;
+	margin: 30px auto;
+	padding-top: 35px;
 	font-size: 1.85em;
+	/* circle */
+	width: 200px;
+	height: 200px;
+	border: 1px solid #752610;
+	border-radius: 50%;
 }
 
 .timer-name, .remaining-time {
@@ -58,7 +64,7 @@ p {
 }
 
 .break-minus, .break-plus, .session-minus, .session-plus {
-	border: 1px solid red;
+	/*border: 1px solid red;*/
 	padding: 5px;
 }
 
@@ -68,7 +74,7 @@ footer {
 	padding-top: 15px;
 	clear: both;
 	text-align: center;
-	font-size: 0.85em;
+	font-size: 1.0em;
 }
 
 .ion-ios-heart {
