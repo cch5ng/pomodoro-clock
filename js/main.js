@@ -13,6 +13,13 @@ function convertTime(millisecond) {
   return [min, sec];
 }
 
+//helper function to play alarm tone
+function playAlarm() {
+  var audio = document.getElementById('audio');
+  audio.play();
+}
+
+//defining Timer prototype
 var Timer = function(name, minutes, isActive, classStr) {
   this.nameStr = name;
   this.minutesSet = minutes || 0;
@@ -114,6 +121,9 @@ breakTimer.countDown = function() {
     breakTimer.milliseconds -= 1000;
     breakTimer.remainingTime = convertTime(breakTimer.milliseconds);
     breakTimer.displayRemainingTime();
+    if (breakTimer.milliseconds === 0) {
+      playAlarm();
+    }
   } else if (sessionTimer.milliseconds - 1000 >= 0) {
     $('.clock').toggleClass('session');
     $('.clock').toggleClass('break');
@@ -140,6 +150,9 @@ sessionTimer.countDown = function() {
     console.log('milliseconds: ' + sessionTimer.milliseconds);
     sessionTimer.remainingTime = convertTime(sessionTimer.milliseconds);
     sessionTimer.displayRemainingTime();
+    if (sessionTimer.milliseconds === 0) {
+      playAlarm();
+    }
   } else if (breakTimer.milliseconds - 1000 >= 0) {
     $('.clock').toggleClass('session');
     $('.clock').toggleClass('break');
