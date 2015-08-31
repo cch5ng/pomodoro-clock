@@ -26,6 +26,7 @@ var Timer = function(name, minutes, isActive, classStr) {
   this.classStr = classStr || '';
   this.remainingTime = convertTime(this.milliseconds);
   this.intervalId = null;
+  this.isAnimating = false;
 };
 
 Timer.prototype.getMilliseconds = function() {
@@ -62,6 +63,12 @@ Timer.prototype.start = function() {
 Timer.prototype.stop = function() {
   console.log('this: ' + this);
   console.log(this.nameStr);
+  if (this.name === "Session") {
+    clearInterval(sessionIntervalId);
+  } else {
+    clearInterval(breakIntervalId);
+  }
+
   if (this.nameStr === 'Session') {
     clearInterval(sessionIntervalId);
   } else {
@@ -134,6 +141,10 @@ sessionTimer.countDown = function() {
   console.log('this.milliseconds: ' + this.milliseconds);
 
   if (sessionTimer.milliseconds - 1000 >= 0) {
+//TODO check if circle fill animation should start
+    if (sessionTimer.milliseconds === 59000) {
+      sessionIntervalId = setInterval(animate, 1000);
+    }
     sessionTimer.isActive = true;
     sessionTimer.isCountingDown = true;
     sessionTimer.displayTimerName();
@@ -172,7 +183,7 @@ if (sessionTimer.isActive) {
 var scrnWidth = window.screen.width;
 var circle = document.querySelector('circle');
 //to center the circle horizontally, I need to offset mid screen by circle r
-circle.setAttribute('cx', scrnWidth / 2 - 120);
+circle.setAttribute('cx', scrnWidth / 2 - 80);
 //used by animate() func
 var count = 0;
 
@@ -222,7 +233,7 @@ function animate() {
 }
 
 //sat 5:30p this is not working
-var rectIntervalId = setInterval(animate, 1000);
+//var rectIntervalId = setInterval(animate, 1000);
 
 //this is for testing currently, to stop the animation
 //clearInterval(rectIntervalId);
