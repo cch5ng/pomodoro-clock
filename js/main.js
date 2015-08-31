@@ -203,11 +203,11 @@ breakTimer.incMinutes = function() {
   breakTimer.minutesSet++;
   console.log('breakTimer.minutesSet: ' + breakTimer.minutesSet);
   breakTimer.displayMinutes();
+  breakTimer.milliseconds = breakTimer.minutesSet * 60000;
+  breakTimer.remainingTime = convertTime(breakTimer.milliseconds);
 
   //updates remaining time display
-  if (breakTimer.isActive && !breakTimer.isCountingDown) {
-    breakTimer.milliseconds = breakTimer.minutesSet * 60000;
-    breakTimer.remainingTime = convertTime(breakTimer.milliseconds);
+  if (breakTimer.isActive && !breakTimer.isCountingDown ) {
     breakTimer.displayRemainingTime();
   }
 };
@@ -218,11 +218,11 @@ breakTimer.decMinutes = function() {
     breakTimer.minutesSet--;
     console.log('breakTimer.minutesSet: ' + breakTimer.minutesSet);
     breakTimer.displayMinutes();
+    breakTimer.milliseconds = breakTimer.minutesSet * 60000;
+    breakTimer.remainingTime = convertTime(breakTimer.milliseconds);
   }
   //updates remaining time display
   if (breakTimer.isActive && !breakTimer.isCountingDown) {
-    breakTimer.milliseconds = breakTimer.minutesSet * 60000;
-    breakTimer.remainingTime = convertTime(breakTimer.milliseconds);
     breakTimer.displayRemainingTime();
   }
 }
@@ -232,9 +232,10 @@ sessionTimer.incMinutes = function() {
   sessionTimer.minutesSet++;
   console.log('sessionTimer.minutesSet: ' + sessionTimer.minutesSet);
   sessionTimer.displayMinutes();
+  sessionTimer.milliseconds = sessionTimer.minutesSet * 60000;
+  sessionTimer.remainingTime = convertTime(sessionTimer.milliseconds);
+
   if (sessionTimer.isActive && !sessionTimer.isCountingDown) {
-    sessionTimer.milliseconds = sessionTimer.minutesSet * 60000;
-    sessionTimer.remainingTime = convertTime(sessionTimer.milliseconds);
     sessionTimer.displayRemainingTime();
   }
 };
@@ -245,10 +246,11 @@ sessionTimer.decMinutes = function() {
     sessionTimer.minutesSet--;
     console.log('sessionTimer.minutesSet: ' + sessionTimer.minutesSet);
     sessionTimer.displayMinutes();
-  }
-  if (sessionTimer.isActive && !sessionTimer.isCountingDown) {
     sessionTimer.milliseconds = sessionTimer.minutesSet * 60000;
     sessionTimer.remainingTime = convertTime(sessionTimer.milliseconds);
+  }
+
+  if (sessionTimer.isActive && !sessionTimer.isCountingDown) {
     sessionTimer.displayRemainingTime();
   }
 }
