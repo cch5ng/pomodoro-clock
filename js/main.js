@@ -115,6 +115,8 @@ breakTimer.countDown = function() {
     breakTimer.remainingTime = convertTime(breakTimer.milliseconds);
     breakTimer.displayRemainingTime();
   } else if (sessionTimer.milliseconds - 1000 >= 0) {
+    $('.clock').toggleClass('session');
+    $('.clock').toggleClass('break');
     breakTimer.stop();
     breakTimer.isCountingDown = false;
     breakTimer.isActive = false;
@@ -130,9 +132,6 @@ breakTimer.countDown = function() {
 
 //defining countDown() separately for sessionTimer because otherwise was getting issues with this and setInterval
 sessionTimer.countDown = function() {
-  console.log('does this get here');
-  console.log('this.milliseconds: ' + this.milliseconds);
-
   if (sessionTimer.milliseconds - 1000 >= 0) {
     sessionTimer.isActive = true;
     sessionTimer.isCountingDown = true;
@@ -142,6 +141,8 @@ sessionTimer.countDown = function() {
     sessionTimer.remainingTime = convertTime(sessionTimer.milliseconds);
     sessionTimer.displayRemainingTime();
   } else if (breakTimer.milliseconds - 1000 >= 0) {
+    $('.clock').toggleClass('session');
+    $('.clock').toggleClass('break');
     sessionTimer.stop();
     sessionTimer.isCountingDown = false;
     sessionTimer.isActive = false;
@@ -167,65 +168,6 @@ if (sessionTimer.isActive) {
   breakTimer.displayTimerName();
   breakTimer.displayRemainingTime();
 }
-
-//center svg circle
-var scrnWidth = window.screen.width;
-var circle = document.querySelector('circle');
-//to center the circle horizontally, I need to offset mid screen by circle r
-circle.setAttribute('cx', scrnWidth / 2 - 120);
-//used by animate() func
-var count = 0;
-
-//helper
-//given selector, returns css rule to update
-//I'm only interested in the 3rd stylesheet so skipping the loop to iterate over all 5 stylesheets 
-function getStyleSheet(unique_title) {
-  var sheet = document.styleSheets[2];
-  console.log('sheet: ' + sheet);
-  console.log('sheet.cssRules: ' + sheet.cssRules);
-  var rules = sheet.cssRules;
-  console.log('rules: ' + rules);
-
-  // for (var i = 0; i < document.styleSheets.length; i++) {
-  //   var sheet = document.styleSheets[i];
-  //   console.log('sheet: ' + sheet);
-  //   console.log('sheet length: ' + document.styleSheets.length);
-   for (var ix = 0; ix < rules.length; ix++) {
-     if (rules[ix].selectorText === unique_title) {
-       return rules[ix].style;
-     }
-   }
-  // }
-}
-
-//helper
-//takes top value in string format; removes 'px' and returns the num value
-function topStrToNum(str) {
-  var idxPx = str.indexOf('px');
-  var cleanStr = str.slice(0, idxPx);
-  return parseInt(cleanStr);
-}
-
-var topOrig = getStyleSheet('.rect').top; 
-console.log('topOrig: ' + topOrig);
-var topOrigNum = topStrToNum(topOrig);
-
-//animates circle fill on last second of active timer
-function animate() {
-  count++;
-  console.log('count: ' + count);
-  var increment = 2; //120 / 60
-  var topVal = topOrigNum - (count * increment);
-  console.log('topVal: ' + topVal);
-  var rule = getStyleSheet('.rect');
-  rule.top = topVal.toString() + 'px';
-}
-
-//sat 5:30p this is not working
-var rectIntervalId = setInterval(animate, 1000);
-
-//this is for testing currently, to stop the animation
-//clearInterval(rectIntervalId);
 
 //click handlers
 var toggleTimer = function() {
