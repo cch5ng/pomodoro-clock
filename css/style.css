@@ -50,8 +50,16 @@ p {
 	/* circle */
 	width: 200px;
 	height: 200px;
-	border: 1px solid #752610;
+	border: 2px solid #752610;
 	border-radius: 50%;
+}
+
+.session {
+	background-color: #ff5b32;
+}
+
+.break {
+	background-color: #5D7FC0;
 }
 
 .timer-name, .remaining-time {
@@ -83,30 +91,6 @@ footer {
 
 a:link, a:hover, a:visited, a:active {
 	color: #645188;
-}
-
-/* testing svg and mask here */
-/* the issue is rather than masking in original dimensions
-		the circle is expanding to fill width:height 1:1 whatever the rect size is;
-		I want it to be reversed
-		the dimensions should be static
-		the rect should only display as much (but masked by the circle)
-*/
-
-.svg-clipped {
-   -webkit-clip-path: url(#svgPath);
-   clip-path: url(#svgPath);
-}
-
-.rect {
-  position: absolute;
-  /* initial top should be just below circle cy + r = 250px*/
-  top: 250px;
-  left: 0;
-  width: 100%;
-  /* height should be little > circle r*/
-  height: 125px;
-  background-color: #5D7FC0;
 }
 
 @media only screen and (min-width: 600px)  {
