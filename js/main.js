@@ -200,57 +200,68 @@ var toggleTimer = function() {
 //breaking out functions from the prototype
 //increments timer's minutes property by one and updates minutes display
 breakTimer.incMinutes = function() {
-  breakTimer.minutesSet++;
-  console.log('breakTimer.minutesSet: ' + breakTimer.minutesSet);
-  breakTimer.displayMinutes();
-  breakTimer.milliseconds = breakTimer.minutesSet * 60000;
-  breakTimer.remainingTime = convertTime(breakTimer.milliseconds);
+  if (!breakTimer.isCountingDown) {
+    breakTimer.minutesSet++;
+    console.log('breakTimer.minutesSet: ' + breakTimer.minutesSet);
+    breakTimer.displayMinutes();
 
   //updates remaining time display
-  if (breakTimer.isActive && !breakTimer.isCountingDown ) {
+    breakTimer.milliseconds = breakTimer.minutesSet * 60000;
+    breakTimer.remainingTime = convertTime(breakTimer.milliseconds);
+  }
+
+  if (breakTimer.isActive) {
     breakTimer.displayRemainingTime();
   }
 };
 
 //decrements timer's minutes property by one and updates minutes display
 breakTimer.decMinutes = function() {
-  if (breakTimer.minutesSet - 1 >= 0) {
-    breakTimer.minutesSet--;
-    console.log('breakTimer.minutesSet: ' + breakTimer.minutesSet);
-    breakTimer.displayMinutes();
+  if (!breakTimer.isCountingDown) {
+    if (breakTimer.minutesSet - 1 >= 0) {
+      breakTimer.minutesSet--;
+      console.log('breakTimer.minutesSet: ' + breakTimer.minutesSet);
+      breakTimer.displayMinutes();
+
+    }
+  //updates remaining time display
     breakTimer.milliseconds = breakTimer.minutesSet * 60000;
     breakTimer.remainingTime = convertTime(breakTimer.milliseconds);
   }
-  //updates remaining time display
-  if (breakTimer.isActive && !breakTimer.isCountingDown) {
+
+  if (breakTimer.isActive) {
     breakTimer.displayRemainingTime();
   }
 }
 
 //increments timer's minutes property by one and updates minutes display
 sessionTimer.incMinutes = function() {
-  sessionTimer.minutesSet++;
-  console.log('sessionTimer.minutesSet: ' + sessionTimer.minutesSet);
-  sessionTimer.displayMinutes();
-  sessionTimer.milliseconds = sessionTimer.minutesSet * 60000;
-  sessionTimer.remainingTime = convertTime(sessionTimer.milliseconds);
+  if (!sessionTimer.isCountingDown) {
+    sessionTimer.minutesSet++;
+    console.log('sessionTimer.minutesSet: ' + sessionTimer.minutesSet);
+    sessionTimer.displayMinutes();
 
-  if (sessionTimer.isActive && !sessionTimer.isCountingDown) {
+    sessionTimer.milliseconds = sessionTimer.minutesSet * 60000;
+    sessionTimer.remainingTime = convertTime(sessionTimer.milliseconds);
+  }
+  if (sessionTimer.isActive) {
     sessionTimer.displayRemainingTime();
   }
 };
 
 //decrements timer's minutes property by one and updates minutes display
 sessionTimer.decMinutes = function() {
-  if (sessionTimer.minutesSet - 1 >= 0) {
-    sessionTimer.minutesSet--;
-    console.log('sessionTimer.minutesSet: ' + sessionTimer.minutesSet);
-    sessionTimer.displayMinutes();
+  if (!sessionTimer.isCountingDown) {
+    if (sessionTimer.minutesSet - 1 >= 0) {
+      sessionTimer.minutesSet--;
+      console.log('sessionTimer.minutesSet: ' + sessionTimer.minutesSet);
+      sessionTimer.displayMinutes();
+    }
+
     sessionTimer.milliseconds = sessionTimer.minutesSet * 60000;
     sessionTimer.remainingTime = convertTime(sessionTimer.milliseconds);
   }
-
-  if (sessionTimer.isActive && !sessionTimer.isCountingDown) {
+  if (sessionTimer.isActive) {
     sessionTimer.displayRemainingTime();
   }
 }
