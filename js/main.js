@@ -108,9 +108,9 @@ Timer.prototype.displayRemainingTime = function() {
 }
 
 //breakTimer: default minutes should be 5
-var breakTimer = new Timer('Break', 1, false, '.break-min');
+var breakTimer = new Timer('Break', 5, false, '.break-min');
 //sessionTimer: default minutes should be 25
-var sessionTimer = new Timer('Session', 1, true, '.session-min');
+var sessionTimer = new Timer('Session', 25, true, '.session-min');
 
 //defining countDown() separately for breakTimer because otherwise was getting issues with this and setInterval
 breakTimer.countDown = function() {
