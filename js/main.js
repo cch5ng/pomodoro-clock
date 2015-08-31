@@ -39,20 +39,6 @@ Timer.prototype.getMilliseconds = function() {
   return this.milliseconds;
 }
 
-//increments timer's minutes property by one and updates minutes display
-// Timer.prototype.incMinutes = function() {
-//   console.log('not currently in use');
-// };
-
-//decrements timer's minutes property by one and updates minutes display
-// Timer.prototype.decMinutes = function() {
-//   console.log('not currently in use');
-// }
-
-// Timer.prototype.countDown = function() {
-//   console.log('commented everything out');
-// }
-
 Timer.prototype.start = function() {
   console.log('this: ' + this);
 //adding this reference to original this so that countDown doesn't get called with window as this
@@ -131,12 +117,10 @@ breakTimer.countDown = function() {
     breakTimer.isCountingDown = false;
     breakTimer.isActive = false;
     console.log('play alarm and change to other timer');
-//TODO need to test case where break goes session
     sessionTimer.start();
 //might break next two lines out into a reset function
     breakTimer.milliseconds = breakTimer.minutesSet * 60000;
     breakTimer.remainingTime = convertTime(breakTimer.milliseconds);
-    //toggleTimer();
   }
 }
 
@@ -160,15 +144,12 @@ sessionTimer.countDown = function() {
     sessionTimer.isCountingDown = false;
     sessionTimer.isActive = false;
     console.log('play alarm and change to other timer');
-//TODO need to test case where session goes to break 
     breakTimer.start();
 //might break next two lines out into a reset function
     sessionTimer.milliseconds = sessionTimer.minutesSet * 60000;
     sessionTimer.remainingTime = convertTime(sessionTimer.milliseconds);
-    //toggleTimer();
   }
 }
-
 
 //initial display
 breakTimer.displayMinutes();
