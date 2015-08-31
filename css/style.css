@@ -7,7 +7,6 @@ body {
 
 .main {
 	width: 90%;
-	/*height: 100%;*/
 	margin: 0 auto;
 }
 
@@ -34,7 +33,6 @@ p {
 .config {
 	float: left;
 	margin: 0 27px;
-	/*margin: 0 auto;*/
 }
 
 .minutes {
@@ -72,11 +70,8 @@ p {
 }
 
 .break-minus, .break-plus, .session-minus, .session-plus {
-	/*border: 1px solid red;*/
 	padding: 5px;
 }
-
-/* TODO EDIT FROM HERE */
 
 footer {
 	padding-top: 15px;
@@ -86,7 +81,7 @@ footer {
 }
 
 .ion-ios-heart {
-	color: #752610; /*#885159;*/
+	color: #752610;
 }
 
 a:link, a:hover, a:visited, a:active {
@@ -111,20 +106,8 @@ a:link, a:hover, a:visited, a:active {
 	}
 }
 
-@media only screen and (min-width: 992px) {
-
-	/*body {
-		background-position: 50% 40px, center;
-	}*/
-
-	/*.main {
-		width: 80%;
-	}*/
+/*@media only screen and (min-width: 992px) {
 }
 
 @media only screen and (min-width: 1200px) {
-
-/*	.story-link {
-		text-align: center;
-	}*/
-}
+}*/
