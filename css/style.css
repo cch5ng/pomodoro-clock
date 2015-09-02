@@ -97,6 +97,12 @@ a:link, a:hover, a:visited, a:active {
 	color: #5D7FC0;
 }
 
+.unselectable {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+
 @media only screen and (min-width: 600px)  {
 
 	h2 {
