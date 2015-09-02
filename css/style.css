@@ -1,5 +1,7 @@
 body {
 	background-color: #f9d37f;
+	background-image: url(https://cch5ng.github.io/pomodoro-clock/assets/birdicon_sm.png);
+	background-repeat: no-repeat;
 	color: #333;
 	font-family: 'Oswald', sans-serif;
 	font-weight: 400;
@@ -16,12 +18,14 @@ body {
 }
 
 h2 {
+	color: #5d5dc1;
 	text-align: center;
 	margin-top: 20px;
 	font-weight: 700;
 }
 
 h3 {
+	color: #5d5dc1;
 	font-size: 1.4em;
 	font-weight: 700;
 }
@@ -36,6 +40,7 @@ p {
 }
 
 .minutes {
+	color: #5d5dc1;
 	margin: 0 5px;
 	font-size: 1.25em;
 }
@@ -80,18 +85,16 @@ footer {
 	font-size: 1.0em;
 }
 
+i {
+	color: #5d5dc1;
+}
+
 .ion-ios-heart {
 	color: #752610;
 }
 
 a:link, a:hover, a:visited, a:active {
 	color: #5D7FC0;
-}
-
-.unselectable {
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	-ms-user-select: none;
 }
 
 @media only screen and (min-width: 600px)  {
